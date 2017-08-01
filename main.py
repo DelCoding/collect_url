@@ -22,23 +22,23 @@ def getList(regex,text):
 
 
 
-def geturl(keyword, search_name):
+def geturl(keyword, pages):
     sums = 0
-    if search_name == "baidu":
-        for page in range(20):
-            pn = page*10 + 1
-            html = baidu_search(keyword,pn)
-            #content = unicode(html, 'utf-8','ignore')
-            arrList = getList("none;\">(w+\..*)\/&nbsp;<\/a>.*data-tools='\{\"title\":\"(.*)\",\"url", html)
-            #titlearr = getList("data-tools='\{\"title\":\"(.*)\",\"url",html)
-            sums += len(arrList)
-            save = open('result.txt', 'a+')
-            for one in arrList:
-                new = one[1].split('"')
-                strs = one[0] + " " + new[0] + "\n"
-                save.write(strs)
-        print "共有：%d" % sums
+    for page in range(pages):
+        pn = page*10 + 1
+        html = baidu_search(keyword,pn)
+        arrList = getList("none;\">(w+\..*)\/&nbsp;<\/a>.*data-tools='\{\"title\":\"(.*)\",\"url", html)
+        sums += len(arrList)
+        save = open('result.txt', 'a+')
+        for one in arrList:
+            new = one[1].split('"')
+            strs = one[0] + " " + new[0] + "\n"
+            save.write(strs)
+    print "共有：%d" % sums
 
 
 if __name__=='__main__':
-    geturl('深圳 学院 首页', 'baidu')
+    keyword = raw_input('请输入搜索关键字：')
+    pages = raw_input('请输入需要搜索的页数：')
+    pages = int(pages)
+    geturl(keyword, pages)

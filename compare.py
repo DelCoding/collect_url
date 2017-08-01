@@ -3,7 +3,7 @@
 import re
 
 file1 = open('result.txt','r')
-file2 = open('e:/school.txt', 'a+')
+file2 = open('e:/result.txt', 'a+')
 
 f1 = file1.readlines()
 f1arr = []
